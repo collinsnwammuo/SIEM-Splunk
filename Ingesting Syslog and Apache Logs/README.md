@@ -89,7 +89,6 @@ index=soc_lab | stats count by sourcetype | sort -count
 | access_combined | [update with actual count] |
 | apache_error | [update with actual count] |
 
-> Update with actual counts from your Splunk search.
 
 ---
 
