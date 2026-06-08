@@ -20,7 +20,7 @@ Every project includes the SPL queries I used, annotated screenshots of my findi
 
 | # | Project | Key Skills | Status |
 |---|---------|------------|--------|
-| 01 | [Ingesting Syslog and Apache Logs](./Project%2001%20-%20Ingesting%20Syslog%20and%20Apache%20Logs) | Multi-source ingestion, sourcetypes, index management | ✅ Complete |
+| 01 | [Ingesting Syslog and Apache Logs](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Ingesting%20Syslog%20and%20Apache%20Logs) | Multi-source ingestion, sourcetypes, index management | ✅ Complete |
 
 ---
 
