@@ -1,6 +1,6 @@
 # 01 - Ingesting Syslog and Apache Logs
 
-**Phase:** 1 -- Installation & Setup  
+**Phase:** 1 -- Getting Data In  
 **Difficulty:** Beginner  
 **Tool:** Splunk Free  
 **Lab Environment:** Kali Linux · VirtualBox
@@ -9,7 +9,7 @@
 
 ## 🎯 What I Did
 
-I added two new log sources to my Splunk SIEM -- the system syslog and Apache web server access and error logs -- bringing the total to four active data inputs in the `soc_lab` index. I then ran multi-source SPL searches across all of them simultaneously, including a search that identified reconnaissance-style HTTP requests I deliberately generated against the Apache server to simulate attacker behaviour.
+I added two new log sources to my Splunk SIEM -- the system syslog and Apache web server access and error logs. I then ran multi-source SPL searches across all of them simultaneously, including a search that identified reconnaissance-style HTTP requests I deliberately generated against the Apache server to simulate attacker behaviour.
 
 Having multiple log sources in one SIEM and being able to correlate across them is the core of what SOC analysts do all day.
 
@@ -183,4 +183,4 @@ This is what makes a SIEM powerful -- a single search returning data from comple
 
 ---
 
-*Project 02 of 17 · [Back to Main Portfolio](../README.md)*
+*Project 01 of 14 · [Back to Main Portfolio](../README.md)*
