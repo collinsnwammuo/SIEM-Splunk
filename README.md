@@ -22,7 +22,7 @@ Every project includes the SPL queries I used, annotated screenshots of my findi
 
 | # | Project | Key Skills | Status |
 |---|---------|------------|--------|
-| 01 | [Ingesting Syslog and Apache Logs](./Project%2002) | Multi-source ingestion, sourcetypes, index management | ⏳ Planned |
+| 01 | [Ingesting Syslog and Apache Logs](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Ingesting%20Syslog%20and%20Apache%20Logs)| Multi-source ingestion, sourcetypes, index management | ⏳ Planned |
 | 02 | [Search and Filter Commands](./Project%2003) | search, table, fields, where, dedup | ⏳ Planned |
 | 03 | [Stats and Aggregation](./Project%2004) | stats, count, by, sort, head, rare, top | ⏳ Planned |
 | 04 | [Timechart -- Visualising Events Over Time](./Project%2005) | timechart, span, time bucketing, line charts | ⏳ Planned |
