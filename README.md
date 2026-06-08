@@ -16,40 +16,45 @@ Every project includes the SPL queries I used, annotated screenshots of my findi
 
 ## 🗂️ Project Index
 
----
-
-### Phase 1 -- SPL Fundamentals
+### Phase 1 -- Getting Data In
 
 | # | Project | Key Skills | Status |
 |---|---------|------------|--------|
-| 01 | [Ingesting Syslog and Apache Logs](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Ingesting%20Syslog%20and%20Apache%20Logs)| Multi-source ingestion, sourcetypes, index management | ⏳ Planned |
-| 02 | [Search and Filter Commands](./Project%2003) | search, table, fields, where, dedup | ⏳ Planned |
-| 03 | [Stats and Aggregation](./Project%2004) | stats, count, by, sort, head, rare, top | ⏳ Planned |
-| 04 | [Timechart -- Visualising Events Over Time](./Project%2005) | timechart, span, time bucketing, line charts | ⏳ Planned |
-| 05 | [Field Extraction with Rex](./Project%2006) | rex, field extraction, regex in SPL | ⏳ Planned |
-| 06 | [Eval and Calculated Fields](./Project%2007) | eval, if, case, calculated fields, conditionals | ⏳ Planned |
+| 01 | [Ingesting Syslog and Apache Logs](./Project%2001%20-%20Ingesting%20Syslog%20and%20Apache%20Logs) | Multi-source ingestion, sourcetypes, index management | ✅ Complete |
 
 ---
 
-### Phase 2 -- Dashboards & Alerts
+### Phase 2 -- SPL Fundamentals
 
 | # | Project | Key Skills | Status |
 |---|---------|------------|--------|
-| 07 | [Failed SSH Login Dashboard](./Project%2008) | Dashboard builder, panel types, visualisations | ⏳ Planned |
-| 08 | [Brute Force Detection Alert](./Project%2009) | Saved alerts, trigger conditions, threshold alerting | ⏳ Planned |
-| 09 | [Ingest Wireshark PCAPs via Zeek](./Project%2010) | Zeek log ingestion, conn.log, PCAP to SIEM pipeline | ⏳ Planned |
-| 10 | [Correlate Wireshark Findings in Splunk](./Project%2011) | IOC correlation, multi-source analysis, evidence linking | ⏳ Planned |
+| 02 | [Search and Filter Commands](./Project%2002) | search, table, fields, where, dedup | ⏳ Planned |
+| 03 | [Stats and Aggregation](./Project%2003) | stats, count, by, sort, head, rare, top | ⏳ Planned |
+| 04 | [Timechart -- Visualising Events Over Time](./Project%2004) | timechart, span, time bucketing, line charts | ⏳ Planned |
+| 05 | [Field Extraction with Rex](./Project%2005) | rex, field extraction, regex in SPL | ⏳ Planned |
+| 06 | [Eval and Calculated Fields](./Project%2006) | eval, if, case, calculated fields, conditionals | ⏳ Planned |
 
 ---
 
-### Phase 3 -- Threat Detection & Hunting
+### Phase 3 -- Dashboards & Alerts
 
 | # | Project | Key Skills | Status |
 |---|---------|------------|--------|
-| 11 | [Live Attack Detection -- SSH Brute Force](./Project%2012) | Live capture + SIEM correlation, parallel analysis | ⏳ Planned |
-| 12 | [Live Attack Detection -- Nmap Scan](./Project%2013) | Reconnaissance detection, port scan signatures in logs | ⏳ Planned |
-| 13 | [BOTS v1 -- Boss of the SOC Challenge](./Project%2014) | Real-world investigation, CTF methodology, IR report | ⏳ Planned |
-| 14 | [SOC Detection Use Case Library](./Project%2015) | Detection engineering, use case documentation, MITRE mapping | ⏳ Planned |
+| 07 | [Failed SSH Login Dashboard](./Project%2007) | Dashboard builder, panel types, visualisations | ⏳ Planned |
+| 08 | [Brute Force Detection Alert](./Project%2008) | Saved alerts, trigger conditions, threshold alerting | ⏳ Planned |
+| 09 | [Ingest Wireshark PCAPs via Zeek](./Project%2009) | Zeek log ingestion, conn.log, PCAP to SIEM pipeline | ⏳ Planned |
+| 10 | [Correlate Wireshark Findings in Splunk](./Project%2010) | IOC correlation, multi-source analysis, evidence linking | ⏳ Planned |
+
+---
+
+### Phase 4 -- Threat Detection & Hunting
+
+| # | Project | Key Skills | Status |
+|---|---------|------------|--------|
+| 11 | [Live Attack Detection -- SSH Brute Force](./Project%2011) | Live capture + SIEM correlation, parallel analysis | ⏳ Planned |
+| 12 | [Live Attack Detection -- Nmap Scan](./Project%2012) | Reconnaissance detection, port scan signatures in logs | ⏳ Planned |
+| 13 | [BOTS v1 -- Boss of the SOC Challenge](./Project%2013) | Real-world investigation, CTF methodology, IR report | ⏳ Planned |
+| 14 | [SOC Detection Use Case Library](./Project%2014) | Detection engineering, use case documentation, MITRE mapping | ⏳ Planned |
 
 ---
 
@@ -108,10 +113,10 @@ This repository is the SIEM layer of my SOC analyst home lab. It builds directly
 
 | Wireshark Project | Splunk Equivalent |
 |---|---|
-| SSH Brute Force Detection (PCAP) | Project 08 -- Brute Force Alert + Project 12 -- Live Detection |
-| Nmap Scan Detection (PCAP) | Project 12 -- Scan Detection in Splunk |
-| Malware PCAP Investigation | Project 09 -- Zeek log ingestion from PCAPs |
-| ARP Spoofing / MITM Detection | Project 12 -- IOC correlation in Splunk |
+| SSH Brute Force Detection (PCAP) | Project 09 -- Brute Force Alert + Project 12 -- Live Detection |
+| Nmap Scan Detection (PCAP) | Project 13 -- Scan Detection in Splunk |
+| Malware PCAP Investigation | Project 10 -- Zeek log ingestion from PCAPs |
+| ARP Spoofing / MITM Detection | Project 11 -- IOC correlation in Splunk |
 
 The goal is to be able to investigate the same attack from both angles -- what it looks like in a raw packet capture and what it looks like in structured SIEM logs. That dual-layer analysis is what real SOC investigations require.
 
@@ -140,6 +145,7 @@ Kali Linux VM (VirtualBox)
 - **Wireshark** -- companion tool for packet-level analysis
 
 ---
+
 
 *Companion repo: [Wireshark Network Analysis Portfolio](https://github.com/collinsnwammuo/Wireshark-projects)*  
 *Main profile: [github.com/collinsnwammuo](https://github.com/collinsnwammuo)*
