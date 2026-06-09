@@ -84,11 +84,10 @@ index=soc_lab | stats count by sourcetype | sort -count
 
 | Sourcetype | Event Count |
 |---|---|
-| syslog | [update with actual count] |
-| linux_secure | [update with actual count] |
-| access_combined | [update with actual count] |
-| apache_error | [update with actual count] |
-
+| syslog | [3571] |
+| linux_secure | [279] |
+| access_combined | [6] |
+| apache_error | [6] |
 
 ---
 
