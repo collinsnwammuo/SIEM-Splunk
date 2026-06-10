@@ -28,11 +28,11 @@ Every project includes the SPL queries I used, annotated screenshots of my findi
 
 | # | Project | Key Skills | Status |
 |---|---------|------------|--------|
-| 02 | [Search and Filter Commands](./Project%2002) | search, table, fields, where, dedup | ⏳ Planned |
-| 03 | [Stats and Aggregation](./Project%2003) | stats, count, by, sort, head, rare, top | ⏳ Planned |
-| 04 | [Timechart -- Visualising Events Over Time](./Project%2004) | timechart, span, time bucketing, line charts | ⏳ Planned |
-| 05 | [Field Extraction with Rex](./Project%2005) | rex, field extraction, regex in SPL | ⏳ Planned |
-| 06 | [Eval and Calculated Fields](./Project%2006) | eval, if, case, calculated fields, conditionals | ⏳ Planned |
+| 02 | [Search and Filter Commands](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Search%20and%20Filter%20Commands) | search, table, fields, where, dedup | ✅ Complete |
+| 03 | [Stats and Aggregation](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Stats%20and%20Aggregation) | stats, count, by, sort, head, rare, top | ✅ Complete |
+| 04 | [Timechart -- Visualising Events Over Time](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Timechart%20--%20Visualising%20Events%20Over%20Time) | timechart, span, time bucketing, line charts | ✅ Complete |
+| 05 | [Field Extraction with Rex](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Field%20Extraction%20with%20Rex) | rex, field extraction, regex in SPL | ✅ Complete |
+| 06 | [Eval and Calculated Fields](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Eval%20and%20Calculated%20Fields) | eval, if, case, calculated fields, conditionals | ✅ Complete |
 
 ---
 
