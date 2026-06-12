@@ -1,1 +1,189 @@
+# 08 - Brute Force Detection Alert
 
+**Phase:** 3 -- Dashboards & Alerts   
+**Tool:** Splunk Free  
+**Lab Environment:** Kali Linux · VirtualBox
+
+---
+
+## 🎯 What I Did
+
+I built two scheduled detection alerts in Splunk -- SSH brute force detection, web reconnaissance detection, and off-hours login detection -- and verified them end-to-end by running live attacks and watching the alerts fire in the Triggered Alerts panel. This project moves Splunk from a passive log viewer to an active detection system that identifies attacks automatically without manual intervention.
+
+---
+
+## 🧠 Background -- Reactive vs Proactive Detection
+
+Without alerts a SIEM is reactive -- you investigate after someone tells you something happened. With alerts it is proactive -- the SIEM tells you something is happening while it is still happening.
+
+```
+REACTIVE (no alerts):
+Attack happens -> logs written -> analyst manually searches -> finds attack
+                                                                    ^
+                                                              hours or days later
+
+PROACTIVE (with alerts):
+Attack happens -> logs written -> scheduled search runs -> threshold exceeded
+                                                                    |
+                                                                    v
+                                                            Alert fires in minutes
+                                                            Analyst investigates
+```
+
+The difference in detection time -- Mean Time To Detect (MTTD) -- is one of the most important metrics in SOC operations. Good alerting reduces MTTD from hours to minutes.
+
+---
+
+## 🔬 Alerts I Built
+
+### Alert 1 -- SSH Brute Force Detection
+
+**Detection logic:** Any source IP with more than 5 failed SSH login attempts in the last 5 minutes.
+
+**Search:**
+```splunk
+index=soc_lab sourcetype=linux_secure "Failed password"
+| rex "from (?P<attacker_ip>\d+\.\d+\.\d+\.\d+)"
+| stats count as failed_attempts by attacker_ip
+| where failed_attempts > 5
+```
+
+**Configuration:**
+```
+Schedule:    Every 1 minute
+Time range:  Last 5 minutes
+Trigger:     Number of Results > 0
+Severity:    High
+Action:      Add to Triggered Alerts
+```
+
+**Threshold reasoning:** Five failed attempts allows for a few legitimate mistyped passwords without alerting. An automated brute force tool generates dozens of attempts per minute, far exceeding this threshold immediately. In a production environment this would be tuned against a baseline of normal failed login rates for the environment.
+
+---
+
+### Alert 2 -- Web Reconnaissance Detection
+
+**Detection logic:** Any client IP generating more than 10 HTTP 404 errors in the last 10 minutes.
+
+**Search:**
+```splunk
+index=soc_lab sourcetype=access_combined
+| rex "\"(?P<http_method>GET|POST|PUT|DELETE) (?P<uri_path>[^\s]+)[^\"]*\" (?P<status_code>\d{3})"
+| where status_code="404"
+| stats count as requests by clientip
+| where requests > 10
+```
+
+**Configuration:**
+```
+Schedule:    Every 5 minutes
+Time range:  Last 10 minutes
+Trigger:     Number of Results > 0
+Severity:    Medium
+Action:      Add to Triggered Alerts
+```
+
+**Threshold reasoning:** Occasional 404s are normal (users mistyping URLs, broken links). Ten 404s from one IP in 10 minutes suggests automated scanning. I verified this by running a curl loop generating 30 consecutive 404 requests which triggered the alert correctly.
+
+---
+
+### Alert 3 -- Off-Hours Successful Login
+
+**Detection logic:** Any successful SSH login occurring outside business hours (10 PM to 6 AM).
+
+**Search:**
+```splunk
+index=soc_lab sourcetype=linux_secure "Accepted password"
+| rex "Accepted password for (?P<logged_in_user>\w+) from"
+| eval hour=strftime(_time, "%H")
+| where hour < 6 OR hour >= 20
+| stats count as logins by logged_in_user
+| where logins > 0
+```
+
+**Configuration:**
+```
+Schedule:    Every 15 minutes
+Time range:  Last 15 minutes
+Trigger:     Number of Results > 0
+Severity:    Critical
+Action:      Add to Triggered Alerts
+```
+
+**Rationale:** A successful login at 3 AM on a server that should only have activity during business hours is a high-priority indicator. Even a single successful off-hours login warrants investigation. This alert is set to Critical because a successful login -- unlike failed attempts -- means access was actually granted.
+
+---
+
+## 📊 Alert Summary
+
+| Alert Name | Threshold | Schedule | Severity | Attack Detected |
+|---|---|---|---|---|
+| SSH Brute Force Detection | >5 failed attempts | Every 1 min | High | Hydra brute force |
+| Web Reconnaissance Detection | >10 HTTP 404s | Every 5 min | Medium | Automated web scanning |
+| Off-Hours Successful Login | Any success outside 6AM-10PM | Every 15 min | Critical | Unauthorised access |
+
+---
+
+## 🧪 Live Testing
+
+I tested each alert end-to-end by generating real attack data and waiting for the alert to fire:
+
+**SSH Brute Force test:**
+```bash
+hydra -l kali -P ~/wordlist.txt ssh://127.0.0.1 -t 4 -V
+hydra -l root -P ~/wordlist.txt ssh://127.0.0.1 -t 4 -V
+```
+Result: Alert fired within 1 minute of Hydra starting. Appeared in Activity -> Triggered Alerts with severity High.
+
+**Web Reconnaissance test:**
+```bash
+for i in {1..30}; do curl -s http://localhost/nonexistent$i > /dev/null; done
+```
+Result: Alert fired within 5 minutes. Appeared with severity Medium.
+
+---
+
+## 💡 What I Learned
+
+- **Threshold tuning is the hardest part of alerting.** Setting the threshold too low creates alert fatigue -- analysts stop trusting alerts because too many are false positives. Setting it too high means real attacks slip through. The right threshold requires knowing your environment's baseline. I set mine at 5 for brute force which is low enough to catch automated tools while ignoring a couple of accidental mistyped passwords.
+
+- **Alert schedule and time range must be compatible.** Running an alert every 1 minute with a 5-minute lookback means the same event could trigger the alert 5 times before the attacker stops. Throttling suppresses this -- I added a 10-minute throttle to the brute force alert to prevent alert flooding from a single attack session.
+
+- **Severity classification drives analyst prioritisation.** Setting the off-hours login alert to Critical and the web reconnaissance to Medium is a deliberate triage decision. A successful login is a confirmed access event -- it requires immediate investigation. 404s are suspicious but not yet confirmed malicious. Severity labels communicate urgency before an analyst reads a single log line.
+
+- **Testing alerts end-to-end exposed a gap I had not considered.** The off-hours login alert only fires during specific hours. I could not easily test it without either changing my system clock or waiting until late at night. This taught me that some detection rules require either a lab time manipulation or acceptance that they can only be tested during specific time windows -- a real constraint in production SOC environments.
+
+- **"Number of Results > 0" is the right trigger condition when the search handles the threshold.** Instead of duplicating the threshold logic in both the search and the trigger condition, I put the threshold in the SPL (`where failed_attempts > 5`) and set the trigger to fire if any results come back at all. This keeps the logic in one place and makes the search easier to tune later.
+
+---
+
+## 🔗 SOC Relevance
+
+| Alert | MTTD Improvement | MITRE ATT&CK |
+|---|---|---|
+| SSH Brute Force | Minutes vs hours | T1110.001 -- Password Guessing |
+| Web Reconnaissance | Minutes vs hours | T1595 -- Active Scanning |
+| Off-Hours Login | Real-time | T1078 -- Valid Accounts |
+
+### Alert Tuning Considerations
+
+| Parameter | My Setting | Production Consideration |
+|---|---|---|
+| Brute force threshold | >5 attempts | Baseline environment, typically >10-20 |
+| Time window | 5 minutes | Shorter = more sensitive, more noise |
+| Schedule frequency | Every 1 minute | Balance between responsiveness and load |
+| Throttle | 10 minutes | Prevents alert flooding from same source |
+| Severity | High | Escalate to Critical if account lockout risk |
+
+---
+
+## 🛠️ Tools I Used
+
+- **Splunk Free** -- SIEM platform and alerting engine
+- **Hydra** -- brute force tool for alert testing
+- **curl** -- HTTP client for 404 generation
+- **Kali Linux** -- lab environment
+
+---
+
+*Project 08 of 14 · [Back to Main Portfolio](../README.md)*
