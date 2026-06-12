@@ -89,7 +89,7 @@ Action:      Add to Triggered Alerts
 
 ### Alert 3 -- Off-Hours Successful Login
 
-**Detection logic:** Any successful SSH login occurring outside business hours (10 PM to 6 AM).
+**Detection logic:** Any successful SSH login occurring outside business hours (6 AM to 8 PM).
 
 **Search:**
 ```splunk
@@ -120,7 +120,7 @@ Action:      Add to Triggered Alerts
 |---|---|---|---|---|
 | SSH Brute Force Detection | >5 failed attempts | Every 1 min | High | Hydra brute force |
 | Web Reconnaissance Detection | >10 HTTP 404s | Every 5 min | Medium | Automated web scanning |
-| Off-Hours Successful Login | Any success outside 6AM-10PM | Every 15 min | Critical | Unauthorised access |
+| Off-Hours Successful Login | Any success outside 6AM-8PM | Every 15 min | Critical | Unauthorised access |
 
 ---
 
