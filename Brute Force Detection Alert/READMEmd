@@ -94,9 +94,10 @@ Action:      Add to Triggered Alerts
 **Search:**
 ```splunk
 index=soc_lab sourcetype=linux_secure "Accepted password"
+| rex "Accepted password for (?P<logged_in_user>\w+) from"
 | eval hour=strftime(_time, "%H")
-| where hour < 6 OR hour > 22
-| stats count as logins by USER
+| where hour < 6 OR hour >= 20
+| stats count as logins by logged_in_user
 | where logins > 0
 ```
 
