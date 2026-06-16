@@ -40,10 +40,10 @@ Every project includes the SPL queries I used, annotated screenshots of my findi
 
 | # | Project | Key Skills | Status |
 |---|---------|------------|--------|
-| 07 | [Failed SSH Login Dashboard](./Project%2007) | Dashboard builder, panel types, visualisations | ⏳ Planned |
-| 08 | [Brute Force Detection Alert](./Project%2008) | Saved alerts, trigger conditions, threshold alerting | ⏳ Planned |
-| 09 | [Ingest Wireshark PCAPs via Zeek](./Project%2009) | Zeek log ingestion, conn.log, PCAP to SIEM pipeline | ⏳ Planned |
-| 10 | [Correlate Wireshark Findings in Splunk](./Project%2010) | IOC correlation, multi-source analysis, evidence linking | ⏳ Planned |
+| 07 | [Failed SSH Login Dashboard](./Project%2007) | Dashboard builder, panel types, visualisations | ✅ Complete |
+| 08 | [Brute Force Detection Alert](./Project%2008) | Saved alerts, trigger conditions, threshold alerting | ✅ Complete|
+| 09 | [Ingest Wireshark PCAPs via Zeek](./Project%2009) | Zeek log ingestion, conn.log, PCAP to SIEM pipeline | ✅ Complete |
+| 10 | [Correlate Wireshark Findings in Splunk](./Project%2010) | IOC correlation, multi-source analysis, evidence linking | ✅ Complete |
 
 ---
 
