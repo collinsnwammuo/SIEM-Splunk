@@ -51,7 +51,7 @@ Every project includes the SPL queries I used, annotated screenshots of my findi
 
 | # | Project | Key Skills | Status |
 |---|---------|------------|--------|
-| 11 | [Live Attack Detection -- SSH Brute Force](./Project%2011) | Live capture + SIEM correlation, parallel analysis | ⏳ Planned |
+| 11 | [Live Attack Detection -- SSH Brute Force](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Live%20Attack%20Detection%20--%20SSH%20Brute%20Force) | Live capture + SIEM correlation, parallel analysis | ✅ Complete |
 | 12 | [Live Attack Detection -- Nmap Scan](./Project%2012) | Reconnaissance detection, port scan signatures in logs | ⏳ Planned |
 | 13 | [BOTS v1 -- Boss of the SOC Challenge](./Project%2013) | Real-world investigation, CTF methodology, IR report | ⏳ Planned |
 | 14 | [SOC Detection Use Case Library](./Project%2014) | Detection engineering, use case documentation, MITRE mapping | ⏳ Planned |
