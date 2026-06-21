@@ -64,18 +64,6 @@ Watching the count field increase between searches gave me a live readout of the
 
 ---
 
-## 📊 What I Observed
-
-### Failed Login Count Progression
-
-| Time into attack | Failed attempts (src_ip 127.0.0.1) |
-|---|---|
-| ~10 seconds | [update with your early observation] |
-| ~30 seconds | [update with your mid-attack observation] |
-| Attack complete | [update with your final count] |
-
----
-
 ### Alert Trigger Confirmation
 
 My SSH Brute Force Detection alert from Project 08 fired during this attack. Confirmed in **Activity -> Triggered Alerts**:
@@ -83,8 +71,10 @@ My SSH Brute Force Detection alert from Project 08 fired during this attack. Con
 ```
 Alert name:    SSH Brute Force Detection
 Severity:      High
-Trigger time:  [update with actual timestamp]
-Result count:  [update with actual count at trigger]
+Attack start time:     2026-06-16 11:22:38
+Attack end time:       2026-06-16 11:23:06
+Trigger time:  [2026-06-16 11:35:01]
+
 ```
 
 This confirmed the alert built in Project 08 functions correctly against a live, real-time attack -- not just historical data.
