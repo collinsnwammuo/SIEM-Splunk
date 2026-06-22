@@ -108,34 +108,34 @@ Nmap's version scan sent HTTP probes with its own User-Agent string and used HEA
 
 ```bash
 # Social media
-curl -s -H "Host: facebook.com" http://localhost/ > /dev/null
-curl -s -H "Host: twitter.com" http://localhost/ > /dev/null
-curl -s -H "Host: instagram.com" http://localhost/ > /dev/null
-curl -s -H "Host: tiktok.com" http://localhost/ > /dev/null
+curl -s http://localhost/facebook.com > /dev/null
+curl -s http://localhost/twitter.com > /dev/null
+curl -s http://localhost/instagram.com > /dev/null
+curl -s http://localhost/tiktok.com > /dev/null
 
 # Gambling
-curl -s -H "Host: bet365.com" http://localhost/ > /dev/null
-curl -s -H "Host: draftkings.com" http://localhost/ > /dev/null
+curl -s http://localhost/bet365.com > /dev/null
+curl -s http://localhost/draftkings.com > /dev/null
 
 # Streaming
-curl -s -H "Host: netflix.com" http://localhost/ > /dev/null
-curl -s -H "Host: youtube.com" http://localhost/ > /dev/null
-curl -s -H "Host: twitch.tv" http://localhost/ > /dev/null
+curl -s http://localhost/netflix.com > /dev/null
+curl -s http://localhost/youtube.com > /dev/null
+curl -s http://localhost/twitch.tv > /dev/null
 
 # Hacking tools
-curl -s -H "Host: exploit-db.com" http://localhost/ > /dev/null
-curl -s -H "Host: hackforums.net" http://localhost/ > /dev/null
+curl -s http://localhost/exploit-db.com > /dev/null
+curl -s http://localhost/hackforums.net > /dev/null
 
 # Torrent
-curl -s -H "Host: thepiratebay.org" http://localhost/ > /dev/null
+curl -s http://localhost/thepiratebay.org > /dev/null
 
 # Cryptocurrency
-curl -s -H "Host: binance.com" http://localhost/ > /dev/null
-curl -s -H "Host: coinbase.com" http://localhost/ > /dev/null
+curl -s http://localhost/binance.com > /dev/null
+curl -s http://localhost/coinbase.com > /dev/null
 
 # Repeat offender simulation
-for i in {1..10}; do curl -s -H "Host: facebook.com" http://localhost/ > /dev/null; done
-for i in {1..5}; do curl -s -H "Host: thepiratebay.org" http://localhost/ > /dev/null; done
+for i in {1..10}; do curl -s http://localhost/facebook.com > /dev/null; done
+for i in {1..5}; do curl -s http://localhost/thepiratebay.org > /dev/null; done
 ```
 
 ### Core Detection Search
@@ -210,14 +210,12 @@ Severity:    Medium
 
 | Category | Sites Visited | Total Requests |
 |---|---|---|
-| Social Media | facebook.com, twitter.com, instagram.com, tiktok.com | [update] |
-| Gambling | bet365.com, draftkings.com | [update] |
-| Streaming | netflix.com, youtube.com, twitch.tv | [update] |
-| Hacking Tools | exploit-db.com, hackforums.net | [update] |
-| Torrent | thepiratebay.org | [update] |
-| Cryptocurrency | binance.com, coinbase.com | [update] |
-
-> Update with actual counts from your Splunk search results.
+| Social Media | facebook.com, twitter.com, instagram.com, tiktok.com | [23] |
+| Gambling | bet365.com, draftkings.com | [4] |
+| Streaming | netflix.com, youtube.com, twitch.tv | [3] |
+| Hacking Tools | exploit-db.com, hackforums.net | [2] |
+| Torrent | thepiratebay.org | [6] |
+| Cryptocurrency | binance.com, coinbase.com | [2] |
 
 ---
 
