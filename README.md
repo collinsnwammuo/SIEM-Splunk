@@ -26,8 +26,8 @@ Every project includes the SPL queries I used, annotated screenshots of my findi
 
 ### Phase 2 -- SPL Fundamentals
 
-| # | Project | Key Skills | Status |
-|---|---------|------------|--------|
+| # | Project | Key Skills | Status    |
+|---|---------|------------|-----------|
 | 02 | [Search and Filter Commands](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Search%20and%20Filter%20Commands) | search, table, fields, where, dedup | ✅ Complete |
 | 03 | [Stats and Aggregation](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Stats%20and%20Aggregation) | stats, count, by, sort, head, rare, top | ✅ Complete |
 | 04 | [Timechart -- Visualising Events Over Time](https://github.com/collinsnwammuo/SIEM-Splunk/tree/main/Timechart%20--%20Visualising%20Events%20Over%20Time) | timechart, span, time bucketing, line charts | ✅ Complete |
