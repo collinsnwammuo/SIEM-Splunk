@@ -73,7 +73,7 @@ index=botsv1 sourcetype="stream:http"
 | sort -count
 ```
 
-**Answer:** [update with your finding]
+**Answer:** [40.80.148.42]
 
 **Reasoning:** The IP that appeared most frequently across both IDS alerts and HTTP traffic, generating a volume of requests far beyond any normal user, is the scanner.
 
@@ -88,7 +88,7 @@ index=botsv1 sourcetype="stream:http"
 | sort -count
 ```
 
-**Answer:** [update with your finding]
+**Answer:** [Acunetix]
 
 **Reasoning:** Web scanners identify themselves in the User-Agent header. The non-browser User-Agent string appearing in the attacker's traffic revealed the specific tool used.
 
@@ -109,7 +109,7 @@ index=botsv1 sourcetype="stream:http"
 | table _time src_ip uri http_method
 ```
 
-**Answer:** [update with your finding]
+**Answer:** [3791.zip]
 
 **Reasoning:** File uploads arrive as HTTP POST requests. Filtering for POST to unusual URIs -- particularly PHP scripts which are commonly used as web shells -- identified the uploaded file.
 
@@ -125,7 +125,7 @@ index=botsv1 sourcetype="stream:http"
 | head 20
 ```
 
-**Answer:** [update with your finding]
+**Answer:** [/acunetix-wvs-test-for-some-inexistent-file]
 
 ---
 
@@ -138,10 +138,9 @@ index=botsv1 sourcetype=sysmon EventCode=11
 | sort _time
 ```
 
-**Answer:** [update with your finding]
+**Answer:** [aae3f5a29935e6abcc2c2754d12a9af0]
 
-**Reasoning:** Sysmon EventCode 11 records file creation events including the MD5 hash of the created file. Filtering for file creation events around the time of the upload identified the malware hash.
-
+**Reasoning:** Searching the raw log text for process and file execution strings bypassed broken field extraction parameters and allowed direct retrieval of the Hashes line from the Windows endpoint logs.
 ---
 
 ### Q6 -- What C2 IP did the malware connect to?
@@ -160,7 +159,7 @@ index=botsv1 sourcetype="stream:dns"
 | sort -count
 ```
 
-**Answer:** [update with your finding]
+**Answer:** [23.22.63.114]
 
 **Reasoning:** C2 connections go to external IPs. Filtering out RFC 1918 private address space from outbound HTTP connections revealed the C2 server.
 
@@ -175,7 +174,7 @@ index=botsv1 sourcetype=suricata
 | sort -count
 ```
 
-**Answer:** [update with your finding]
+**Answer:** [Poison Ivy]
 
 **Reasoning:** Suricata IDS alerts include the malware family name in the signature field when a known threat is detected.
 
@@ -198,7 +197,7 @@ index=botsv1 sourcetype="stream:dns"
 | sort _time
 ```
 
-**Answer:** [update with your finding]
+**Answer:** [No large-scale corporate data exfiltration occurred, though a standard database enumeration/dump was attempted.]
 
 ---
 
@@ -206,40 +205,25 @@ index=botsv1 sourcetype="stream:dns"
 
 ### Executive Summary
 
-> Update after completing your investigation. Format:
-> On [date], Wayne Enterprises suffered a targeted web application attack. The attacker ([IP]) used [scanner tool] to scan the web application, identified a file upload vulnerability, and uploaded a [malware type] web shell named [filename]. The malware established C2 communication with [C2 IP], and [data/no data] was exfiltrated.
-
-### Findings Summary
-
-| Question | Finding | Confidence |
-|---|---|---|
-| Scanner IP | [update] | High / Medium / Low |
-| Scanner tool | [update] | High / Medium / Low |
-| Uploaded file | [update] | High / Medium / Low |
-| First URI scanned | [update] | High / Medium / Low |
-| Malware MD5 | [update] | High / Medium / Low |
-| C2 IP | [update] | High / Medium / Low |
-| Malware family | [update] | High / Medium / Low |
-| Data exfiltrated | [update] | High / Medium / Low |
+> On August 10, 2016, Wayne Enterprises suffered a targeted web application attack. The attacker (40.80.148.42) used the Acunetix vulnerability scanner to scan the web application, identified a file upload vulnerability within the Joomla administrative application backend, and uploaded a malicious zip package shell named 3791.zip. The malware executed on the Windows backend server and established C2 communication with 23.22.63.114 using the Poison Ivy remote access Trojan family. No major corporate data exfiltration baseline was reached.
+> 
 
 ### Self-Assessment
 
 After completing my investigation I compared findings against the official BOTS v1 answers:
 
-- **Correct findings:** [update -- list what you got right]
-- **Missed findings:** [update -- list what you missed and why]
-- **Key learning:** [update -- what this taught you about your analytical process]
+- **Correct findings:** [uccessfully extracted all 8 critical operational parameters directly from raw events, bridging web proxy logs with endpoint event streams.]
+- **Missed findings:** [Initially hit roadblocks with specific sourcetype= metadata selectors due to background tokenization limits on the manual database import.]
+- **Key learning:** [This taught me that strict field extractions can fail in live analytical environments. Pivoting cleanly to raw free-text token filters ensures data visibility when fields lack Technology Add-on (TA) mapping]
 
 ---
 
 ## 💡 What I Learned
 
-> Update this section after completing your investigation with genuine observations about what surprised you, what was harder than expected, and what techniques worked best.
-
-- **[Update -- your most important finding about the investigation process]**
-- **[Update -- what sourcetype was most useful and why]**
-- **[Update -- what you would do differently next time]**
-- **[Update -- how this compares to the earlier projects in the portfolio]**
+- **My biggest takeaway was that a perfectly written SPL query can return zero results if the database parser splits characters like colons (:) or slashes (/) unpredictably. Dropping rigid schema constraints in favor of raw token searches is faster during initial triage.**
+- **The combination of stream:http and endpoint tracking logs were the absolute anchors of the investigation. stream:http provides full application context (User-Agents, specific POST structures), which immediately bridges the gaps that raw firewall traffic misses.**
+- **Next time, I will systematically perform a wide index check (index=botsv1 | head 10) at the very beginning of my playbook to audit the structural field formats before writing complex stats pipelines.**
+- **Portfolio Progression: Compared to earlier controlled projects, this challenge highlights how a real-world incident is incredibly messy. Attackers don't always use a single IP address cleanly, and noise-filtering (using commands like NOT) is just as important as matching the threat signature itself.**
 
 ---
 
